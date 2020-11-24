@@ -12,10 +12,10 @@ namespace lab11_app {
 			this.bonus_num = a;
 			this.continuation = 1;
 		}
-		public void change_bonus_num (int a) {
+		public void change_bonus_num (int a) { //изменение числа бонусов
 			this.bonus_num = a;
 		}
-		public void change_continuation(int a) {
+		public void change_continuation(int a) { //изменение длительности
 			this.continuation = a;
 		}
 		public void output() { //вывод
@@ -48,9 +48,9 @@ namespace lab11_app {
 		}
 	}
 	class book_store {
-		special[,] spec_offer1 = new special[10, 10];
-		special[] spec_offer = new special[10]; //бонусы
-		int n = 0;
+		special[,] spec_offer1 = new special[10, 10]; //бонусы двумерный массив
+		special[] spec_offer = new special[10]; //бонусы одномерный массив
+		int n = 0; //размерности массивов
 		int m = 0;
 		String title; //название
 		String author; //автор
@@ -100,7 +100,7 @@ namespace lab11_app {
 			set { popularity = value; }
 		}
 	
-		public book_store(String str1, String str2, String str3, int a, int b, int c, int d, special[] spec_offer) { //конструктор с параметрами
+		public book_store(String str1, String str2, String str3, int a, int b, int c, int d, special[] spec_offer) { //конструктор с параметрами для одномерного массива
 			this.title = str1;
 			this.author = str2;
 			this.genre = str3;
@@ -113,7 +113,7 @@ namespace lab11_app {
 				this.spec_offer[i] = spec_offer[i];
 			}
 		}
-		public book_store(String str1, String str2, String str3, int a, int b, int c, int d, int e, special[,] spec_offer) { //конструктор с параметрами
+		public book_store(String str1, String str2, String str3, int a, int b, int c, int d, int e, special[,] spec_offer) { //конструктор с параметрами для двумерного массива
 			this.title = str1;
 			this.author = str2;
 			this.genre = str3;
@@ -139,21 +139,18 @@ namespace lab11_app {
 			popularity = c;
 			n = d;
 		}
-		public void output() { //вывод
+		public void output() { //вывод для одномерного массива
 			Console.WriteLine("\nYour book");
 			Console.Write($"\nTitle: {title}\nAuthor: {author}\nGenre: {genre}\nPrice: {price}\nNumber in stock: {num_stock}\nPopularity: {popularity}\n");
-			//Console.Write("\nNumber of bonuses: ");
 			for(int i = 0; i < n; i++)
 			{
 				spec_offer[i].output();
-				//Console.Write($"{spec_offer[i].bonus_num} ");
 			}
 			Console.Write("\n");
 		}
-		public void output1() { //вывод
+		public void output1() { //вывод для двумерного массива
 			Console.WriteLine("\nYour book");
 			Console.Write($"\nTitle: {title}\nAuthor: {author}\nGenre: {genre}\nPrice: {price}\nNumber in stock: {num_stock}\nPopularity: {popularity}\n");
-			//Console.Write("\nNumber of bonuses: ");
 			for(int i = 0; i < n; i++)
 			{
 				for(int j = 0; j < m; j++)
@@ -193,13 +190,13 @@ namespace lab11_app {
 		public int summarize(book_store book) { //сложение количества двух книг
 			return this.num_stock + book.num_stock;
 		}
-		public void reduce_bonus() { //уменьшение числа бонусов
+		public void reduce_bonus() { //уменьшение числа бонусов для одномерного массива
 			for( int i = 0; i < n; i++)
 			{
 				this.spec_offer[i].reduce_bonus();
 			}
 		}
-		public void reduce_bonus1() { //уменьшение числа бонусов
+		public void reduce_bonus1() { //уменьшение числа бонусов для двумерного массива
 			for( int i = 0; i < n; i++)
 			{
 				for(int j = 0; j < m; j++)
@@ -219,7 +216,7 @@ namespace lab11_app {
 			Console.WriteLine("Input information about the 1 book\n"); //ввод информации о книге
 			Console.WriteLine("Input number of specials: ");
 			n = Convert.ToInt32(Console.ReadLine());
-			special[] spec_offer1 = new special[10];
+			special[] spec_offer1 = new special[10]; //одномерные массивы
 			special[] spec_offer2 = new special[10];
 			for(int i = 0; i < n; i++)
 			{
@@ -311,7 +308,7 @@ namespace lab11_app {
 			book1.output();
 			book1.archivate(); //отправка на склад
 			book1.output();
-			book1.reduce_bonus(); //уменьшение количества бонусов
+			book1.reduce_bonus(); //уменьшение количества бонусов для одномерного массива
 			book1.output();
 			book1.predictable_profit(out profit); //подсчет ожидаемой прибыли через out
 			Console.WriteLine("\nPredictable profit: {0}", profit);
@@ -320,13 +317,12 @@ namespace lab11_app {
 			Console.WriteLine("First book title length is {0}",book_store.title_len(book1)); //вывод значения длины строки названия
 			book_store.space_left = 50; //установка значения оставшегося места
 			Console.WriteLine("Space left in the store {0}",book_store.space_left);
-			
 			Console.WriteLine("Input information about the 3 book\n"); //ввод информации о книге
 			Console.WriteLine("Input number of specials (n and m): ");
 			n = Convert.ToInt32(Console.ReadLine());
 			m = Convert.ToInt32(Console.ReadLine());
-			special [,] spec_offer3 = new special[10, 10];
-			for(int i = 0; i < n; i++)
+			special [,] spec_offer3 = new special[10, 10]; //двумерный массив
+			for(int i = 0; i < n; i++) //ввод двумерного массива
 			{
 				for(int j = 0; j < m; j++)
 				{
@@ -409,7 +405,7 @@ namespace lab11_app {
 			book3.output1();
 			book3.archivate(); //отправка на склад
 			book3.output1();
-			book3.reduce_bonus1(); //уменьшение количества бонусов
+			book3.reduce_bonus1(); //уменьшение количества бонусов для двумерного массива
 			book3.output1();
 			special[] spec_offer0 = new special[1];
 			special[] spec_offer4 = new special[1];
